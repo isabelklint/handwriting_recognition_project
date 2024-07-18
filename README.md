@@ -16,11 +16,7 @@ handwriting_recognition_project
 │   ├── processed
 │   └── raw
 │       ├── CharactersDataset
-│       │   ├── TestSet
-│       │   └── TrainingSet
 │       ├── Dataset
-│       │   ├── Test
-│       │   └── Training
 │       ├── test
 │       ├── train
 │       └── validation
@@ -36,29 +32,14 @@ handwriting_recognition_project
 ├── requirements.txt
 ├── setup.cfg
 ├── src
-│   ├── __init__.py
-│   ├── config.py
-│   ├── dataset.py
-│   ├── features.py
-│   ├── modeling
-│   │   ├── __init__.py
-│   │   ├── predict.py
-│   │   └── train.py
-│   ├── visualization
-│   │   └── plots.py
 │   ├── Keras-OCR
 │   │   ├── Code
-│   │   │   ├── IoU.py
-│   │   │   ├── cleanImage.py
-│   │   │   ├── kg.py
-│   │   │   └── predictions.py
 │   │   ├── Model
-│   │   │   └── keras-recognizer_custom.h5
 │   │   └── requirements.txt
 │   └── YOLO-OCR
 │       ├── README.md
 │       ├── YOLO
-│       │   └── words
+│       ├── requirements.txt
 │       └── src
 │           ├── predict-crnn.py
 │           ├── predict-yolo-ocr.py
@@ -71,21 +52,21 @@ handwriting_recognition_project
 ## Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/isabelklint/handwriting_recognition_project.git
-cd handwriting_recognition_project
-```
+    ```bash
+    git clone https://github.com/isabelklint/handwriting_recognition_project.git
+    cd handwriting_recognition_project
+    ```
 
 2. Create and activate a virtual environment:
-```bash
-python -m venv env
-source env/bin/activate
-```
+    ```bash
+    python -m venv env
+    source env/bin/activate
+    ```
 
 3. Install the dependencies:
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 
@@ -93,13 +74,16 @@ pip install -r requirements.txt
 
 To run the Keras-OCR predictions, use the following command:
 ```bash
-python src/Keras-OCR/Code/predictions.py -m <model_path> -i <images_path> -o <output_path> -j <json_path>
+python src/Keras-OCR/Code/predictions.py -m models/keras-recognizer_custom.h5 -i data/raw/test -o data/interim/cleaned -j data/processed/predictions
 ```
 
-- `model_path`: Path to the Keras-OCR model weights (e.g., `models/keras-recognizer_custom.h5`)
-- `images_path`: Path to the directory containing input images (e.g., `data/raw/test`)
-- `output_path`: Path to the directory where cleaned images will be saved (e.g., `data/interim/cleaned`)
-- `json_path`: Path to the directory where output JSON files will be saved (e.g., `data/processed/predictions`)
+### Training the CRNN Model
+
+To train the CRNN text recognizer, use the following command:
+```bash
+python src/YOLO-OCR/src/train-crnn.py --dataset data/raw/train --labels data/raw/train/labels.txt --model models/crnn_model.h5 --epochs 50 --batch_size 32
+```
+Replace the paths with your actual dataset and labels paths.
 
 ### Running the YOLO-OCR Predictions
 
@@ -127,4 +111,5 @@ We welcome contributions! Please see the contributing guidelines for more inform
 This project is licensed under the MIT License. See the LICENSE file for more details.
 ```
 
-This provides a clear overview of the project, its structure, and how to run the scripts and models.
+By following these steps, you should be able to integrate and run the scripts from `DeepLearningSpanishAmerican-master` within your `handwriting_recognition_project`. Ensure paths are correctly set and dependencies are installed properly.
+```
