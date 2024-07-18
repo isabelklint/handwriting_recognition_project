@@ -8,14 +8,14 @@ Run in terminal as:  python3 predictions.py -i <images_path> -o <output_path> -j
 import numpy as np
 import pandas as pd
 import json
-
-import os.path
+import os
 import argparse
-
-import matplotlib.pyplot as pyplot
+import matplotlib.pyplot as plt
 import keras_ocr
 
-import cleanImage
+
+# Assuming cleanImage.py is in the src/Keras-OCR directory
+from src.Keras-OCR.Code import cleanImage
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-m", "--model", required=True, help="model path")
@@ -29,10 +29,10 @@ image_input_path = str(args["input"])
 image_output_path = str(args["output"])
 json_output_path = str(args["json"])
 
+# Assuming clean function is in cleanImage module
 cleanImage.clean(image_input_path, image_output_path)
 
 def predict(model_path, image_output_path, json_output_path):
-    
     DEFAULT_ALPHABET = ''.join(['"', '=', 'C', 'D', 'J', 'N', 'R', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z', 'ç', 'ñ', 'ü'])
 
     detector = keras_ocr.detection.Detector()
@@ -41,7 +41,7 @@ def predict(model_path, image_output_path, json_output_path):
 
     for folder in os.listdir(image_output_path):
         if not folder.startswith('.'):
-            for filename in os.listdir(image_output_path+folder):
+            for filename in os.listdir(os.path.join(image_output_path, folder)):
                 dir_path = os.path.join(json_output_path, folder)
                 os.makedirs(dir_path, exist_ok=True)
                 image_result = {}

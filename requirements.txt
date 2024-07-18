@@ -1,6 +1,16 @@
-numpy
+numpy>=1.21.0
 pandas
 scikit-learn
 tensorflow
 keras
 jupyter
+keras-ocr
+opencv-python
+opencv-python-headless>=4.5.4.60
+matplotlib
+keras_ocr
+scipy
+h5py
+xlrd
+rdflib
+imutils
